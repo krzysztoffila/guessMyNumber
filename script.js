@@ -9,5 +9,16 @@ number.textContent = "?";
 const score = document.querySelector('.score');
 score.textContent = 20;
 
-const inputNumber = document.querySelector('.guess');
-inputNumber.value = 23;
+
+
+const checkBtn = document.querySelector(".check")
+
+function checkNumber() {
+    const guess = Number(document.querySelector('.guess').value);
+    if (!guess) {
+        message.textContent = '🚩 No Number!'
+    }
+}
+
+
+checkBtn.addEventListener('click', checkNumber)
