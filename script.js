@@ -1,6 +1,6 @@
 'use strict'
 const message = document.querySelector('.message');
-const messages = ['🟥 No Number!', '🎉 Correct Number!', '📈Too high!', '📉Too low!']
+const messages = ['🟥 No Number!', '🎉 Correct Number!', '📈Too high!', '📉Too low!', '💥You lost the game!']
 
 const highscore = document.querySelector(".highscore")
 
@@ -24,13 +24,24 @@ function checkNumber() {
         document.body.style.backgroundColor = "#60b347";
         highscore.textContent = scoreValue
     } else if (guess > secretNumber) {
-        message.textContent = messages[2];
-        scoreValue--
-        score.textContent = scoreValue
+        if (scoreValue > 1) {
+            message.textContent = messages[2];
+            scoreValue--;
+            score.textContent = scoreValue;
+        } else {
+            message.textContent = messages[4];
+            score.textContent = 0;
+        }
     } else if (guess < secretNumber) {
-        message.textContent = messages[3];
-        scoreValue--
-        score.textContent = scoreValue
+        if (scoreValue > 1) {
+            message.textContent = messages[3];
+            scoreValue--;
+            score.textContent = scoreValue;
+        } else {
+            message.textContent = messages[4];
+            score.textContent = 0;
+        }
+
     }
     console.log(secretNumber)
 }
