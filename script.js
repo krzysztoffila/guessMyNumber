@@ -20,6 +20,10 @@ const messages = {
     gameOver: '💥You lost the game!'
 }
 
+function showMessage(message) {
+    message.textContent = message
+}
+
 function checkNumber() {
     let guess = Number(document.querySelector('.guess').value);
     // When guess is no input
@@ -31,36 +35,23 @@ function checkNumber() {
         number.textContent = secretNumber;
         document.body.style.backgroundColor = "#60b347";
         number.style.width = '30rem'
-
+        // set highscore
         if (scoreValue > highscoreValue) {
             highscoreValue = scoreValue;
             highscore.textContent = highscoreValue;
-        }
-
-        // When guess is too high
-    } else if (guess > secretNumber) {
+        } // When guess is wrong
+    } else if (guess !== secretNumber) {
         if (scoreValue > 1) {
-            message.textContent = messages.highNumber;
+            message.textContent = guess > secretNumber ? messages.highNumber : messages.lowNumber
             scoreValue--;
             score.textContent = scoreValue;
         } else {
             message.textContent = messages.gameOver;
             score.textContent = 0;
         }
-        // When guess is top low
-    } else if (guess < secretNumber) {
-        if (scoreValue > 1) {
-            message.textContent = messages.lowNumber;
-            scoreValue--;
-            score.textContent = scoreValue;
-        } else {
-            message.textContent = messages.gameOver;
-            score.textContent = 0;
-        }
-
     }
     // DON'T CHEAT!
-    // console.log(secretNumber)
+    console.log(secretNumber)
 }
 
 function resetGame() {
