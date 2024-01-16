@@ -1,5 +1,16 @@
 'use strict'
 const message = document.querySelector('.message');
+const number = document.querySelector('.number');
+const highscore = document.querySelector(".highscore")
+const checkBtn = document.querySelector(".check");
+const againBtn = document.querySelector('.again');
+let secretNumber = Math.floor(Math.random() * 20) + 1;
+let score = document.querySelector('.score');
+let scoreValue = 20;
+
+number.textContent = "?";
+score.textContent = scoreValue;
+
 const messages = {
     noNumber: '🟥 No Number!',
     win: '🎉 Correct Number!',
@@ -7,27 +18,20 @@ const messages = {
     lowNumber: '📉Too low!',
     gameOver: '💥You lost the game!'
 }
-const highscore = document.querySelector(".highscore")
-
-const number = document.querySelector('.number');
-number.textContent = "?";
-let score = document.querySelector('.score');
-let scoreValue = 20;
-score.textContent = scoreValue;
-
-const checkBtn = document.querySelector(".check");
-
-const secretNumber = Math.floor(Math.random() * 20) + 1;
 
 function checkNumber() {
-    const guess = Number(document.querySelector('.guess').value);
+    let guess = Number(document.querySelector('.guess').value);
+    // When guess is no input
     if (!guess) {
         message.textContent = messages.noNumber
+        //  When player wins
     } else if (guess === secretNumber) {
         message.textContent = messages.win
         number.textContent = secretNumber;
         document.body.style.backgroundColor = "#60b347";
         highscore.textContent = scoreValue
+        number.style.width = '30rem'
+        // When guess is too high
     } else if (guess > secretNumber) {
         if (scoreValue > 1) {
             message.textContent = messages.highNumber;
@@ -37,6 +41,7 @@ function checkNumber() {
             message.textContent = messages.gameOver;
             score.textContent = 0;
         }
+        // When guess is top low
     } else if (guess < secretNumber) {
         if (scoreValue > 1) {
             message.textContent = messages.lowNumber;
@@ -51,5 +56,19 @@ function checkNumber() {
     console.log(secretNumber)
 }
 
+function resetGame() {
+    scoreValue = 20
+    secretNumber = Math.floor(Math.random() * 20) + 1;
+
+    number.textContent = "?";
+    message.textContent = 'Start guessing..'
+    score.textContent = scoreValue;
+    highscore.textContent = 0;
+    document.querySelector('.guess').value = ''
+
+    number.style.width = '15rem';
+    document.body.style.backgroundColor = "#222";
+}
 
 checkBtn.addEventListener('click', checkNumber)
+againBtn.addEventListener('click', resetGame)
