@@ -7,6 +7,7 @@ const againBtn = document.querySelector('.again');
 let secretNumber = Math.floor(Math.random() * 20) + 1;
 let score = document.querySelector('.score');
 let scoreValue = 20;
+let highscoreValue = 0;
 
 number.textContent = "?";
 score.textContent = scoreValue;
@@ -29,8 +30,13 @@ function checkNumber() {
         message.textContent = messages.win
         number.textContent = secretNumber;
         document.body.style.backgroundColor = "#60b347";
-        highscore.textContent = scoreValue
         number.style.width = '30rem'
+
+        if (scoreValue > highscoreValue) {
+            highscoreValue = scoreValue;
+            highscore.textContent = highscoreValue;
+        }
+
         // When guess is too high
     } else if (guess > secretNumber) {
         if (scoreValue > 1) {
@@ -63,7 +69,6 @@ function resetGame() {
     number.textContent = "?";
     message.textContent = 'Start guessing..'
     score.textContent = scoreValue;
-    highscore.textContent = 0;
     document.querySelector('.guess').value = ''
 
     number.style.width = '15rem';
