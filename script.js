@@ -59,7 +59,8 @@ function checkNumber() {
         }
 
     }
-    console.log(secretNumber)
+    // DON'T CHEAT!
+    // console.log(secretNumber)
 }
 
 function resetGame() {
