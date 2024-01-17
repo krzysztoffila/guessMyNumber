@@ -42,7 +42,8 @@ function checkNumber() {
         } // When guess is wrong
     } else if (guess !== secretNumber) {
         if (scoreValue > 1) {
-            message.textContent = guess > secretNumber ? messages.highNumber : messages.lowNumber
+            showMessage(message, guess > secretNumber ? messages.highNumber : messages.lowNumber)
+            // message.textContent = guess > secretNumber ? messages.highNumber : messages.lowNumber
             scoreValue--;
             showMessage(score, scoreValue)
         } else {
