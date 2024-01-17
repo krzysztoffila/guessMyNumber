@@ -1,7 +1,7 @@
 'use strict'
 const message = document.querySelector('.message');
 const number = document.querySelector('.number');
-const highscore = document.querySelector(".highscore")
+const highscore = document.querySelector(".highscore");
 const checkBtn = document.querySelector(".check");
 const againBtn = document.querySelector('.again');
 let secretNumber = Math.floor(Math.random() * 20) + 1;
@@ -20,52 +20,53 @@ const messages = {
     gameOver: '💥You lost the game!'
 }
 
-function showMessage(element, message) {
-    element.textContent = message
+function displayMessage(element, message) {
+    element.textContent = message;
+}
+
+function setWidthAndBgColor(width, backgroundColor) {
+    document.body.style.backgroundColor = backgroundColor;
+    number.style.width = width;
 }
 
 function checkNumber() {
     let guess = Number(document.querySelector('.guess').value);
     // When guess is no input
     if (!guess) {
-        showMessage(message, messages.noNumber)
+        displayMessage(message, messages.noNumber);
         //  When player wins
     } else if (guess === secretNumber) {
-        showMessage(message, messages.correctNumber)
-        showMessage(number, secretNumber)
-        document.body.style.backgroundColor = "#60b347";
-        number.style.width = '30rem'
-        // set highscore
+        displayMessage(message, messages.correctNumber);
+        displayMessage(number, secretNumber);
+        setWidthAndBgColor('30rem', "#60b347");
+
         if (scoreValue > highscoreValue) {
             highscoreValue = scoreValue;
-            showMessage(highscore, highscoreValue)
+            displayMessage(highscore, highscoreValue);
         } // When guess is wrong
     } else if (guess !== secretNumber) {
         if (scoreValue > 1) {
-            showMessage(message, guess > secretNumber ? messages.highNumber : messages.lowNumber)
-            // message.textContent = guess > secretNumber ? messages.highNumber : messages.lowNumber
+            displayMessage(message, guess > secretNumber ? messages.highNumber : messages.lowNumber);
             scoreValue--;
-            showMessage(score, scoreValue)
+            displayMessage(score, scoreValue);
         } else {
-            showMessage(message, messages.gameOver)
+            displayMessage(message, messages.gameOver);
             score.textContent = 0;
         }
     }
     // DON'T CHEAT!
-    console.log(secretNumber)
+    // console.log(secretNumber)
 }
 
 function resetGame() {
-    scoreValue = 20
+    scoreValue = 20;
     secretNumber = Math.floor(Math.random() * 20) + 1;
-    showMessage(number, "?")
-    showMessage(message, 'Start guessing..')
-    showMessage(score, scoreValue)
-    document.querySelector('.guess').value = ''
-
-    number.style.width = '15rem';
-    document.body.style.backgroundColor = "#222";
+    displayMessage(number, "?");
+    displayMessage(message, 'Start guessing..');
+    displayMessage(score, scoreValue);
+    document.querySelector('.guess').value = '';
+    setWidthAndBgColor('15rem', "#222");
 }
 
-checkBtn.addEventListener('click', checkNumber)
-againBtn.addEventListener('click', resetGame)
+checkBtn.addEventListener('click', checkNumber);
+againBtn.addEventListener('click', resetGame);
