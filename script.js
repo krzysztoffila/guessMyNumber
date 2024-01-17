@@ -14,39 +14,39 @@ score.textContent = scoreValue;
 
 const messages = {
     noNumber: '🟥 No Number!',
-    win: '🎉 Correct Number!',
+    correctNumber: '🎉 Correct Number!',
     highNumber: '📈Too high!',
     lowNumber: '📉Too low!',
     gameOver: '💥You lost the game!'
 }
 
-function showMessage(message) {
-    message.textContent = message
+function showMessage(element, message) {
+    element.textContent = message
 }
 
 function checkNumber() {
     let guess = Number(document.querySelector('.guess').value);
     // When guess is no input
     if (!guess) {
-        message.textContent = messages.noNumber
+        showMessage(message, messages.noNumber)
         //  When player wins
     } else if (guess === secretNumber) {
-        message.textContent = messages.win
-        number.textContent = secretNumber;
+        showMessage(message, messages.correctNumber)
+        showMessage(number, secretNumber)
         document.body.style.backgroundColor = "#60b347";
         number.style.width = '30rem'
         // set highscore
         if (scoreValue > highscoreValue) {
             highscoreValue = scoreValue;
-            highscore.textContent = highscoreValue;
+            showMessage(highscore, highscoreValue)
         } // When guess is wrong
     } else if (guess !== secretNumber) {
         if (scoreValue > 1) {
             message.textContent = guess > secretNumber ? messages.highNumber : messages.lowNumber
             scoreValue--;
-            score.textContent = scoreValue;
+            showMessage(score, scoreValue)
         } else {
-            message.textContent = messages.gameOver;
+            showMessage(message, messages.gameOver)
             score.textContent = 0;
         }
     }
@@ -57,10 +57,9 @@ function checkNumber() {
 function resetGame() {
     scoreValue = 20
     secretNumber = Math.floor(Math.random() * 20) + 1;
-
-    number.textContent = "?";
-    message.textContent = 'Start guessing..'
-    score.textContent = scoreValue;
+    showMessage(number, "?")
+    showMessage(message, 'Start guessing..')
+    showMessage(score, scoreValue)
     document.querySelector('.guess').value = ''
 
     number.style.width = '15rem';
